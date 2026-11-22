@@ -33,7 +33,7 @@ export const resumeData = {
         email: "stellajoygregorio.rn@gmail.com",
         availability: ["Active Registered Nurse", "Open to Clinical Opportunities"],
         summary:
-            "I like the ward. I start the IV, stay close after surgery, and tell you what's happening in normal words.",
+            "I like the ward. I say what I'm about to do, I start the IV, and I stay close after surgery.",
         headshotUrl: "/headshot.jpg",
         resumePdfUrl: "/resume.pdf",
     },

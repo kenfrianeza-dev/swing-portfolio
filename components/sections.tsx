@@ -4,6 +4,7 @@ import {
   ChevronDown,
   Download,
   GraduationCap,
+  Hospital,
   Sparkles,
   Mail,
   MapPin,
@@ -13,6 +14,7 @@ import {
 } from "lucide-react";
 import { resumeData } from "@/data/resume";
 import BorderGlow from "@/components/BorderGlow";
+import { FadeIn } from "@/components/fade-in";
 import GradientText from "@/components/GradientText";
 import { HeroFibers } from "@/components/hero-fibers";
 import { Portrait } from "@/components/portrait";
@@ -74,11 +76,13 @@ function Section({
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-28">
       <div className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 sm:pb-16">
-        <Divider />
-        <h2 id={`${id}-title`} className="mt-10 flex items-center gap-3 font-serif text-3xl tracking-tight text-balance sm:mt-12">
-          <Icon className="size-7 shrink-0 text-accent" aria-hidden="true" strokeWidth={1.5} />
-          {title}
-        </h2>
+        <FadeIn>
+          <Divider />
+          <h2 id={`${id}-title`} className="mt-10 flex items-center gap-3 font-serif text-3xl tracking-tight text-balance sm:mt-12">
+            <Icon className="size-7 shrink-0 text-accent" aria-hidden="true" strokeWidth={1.5} />
+            {title}
+          </h2>
+        </FadeIn>
         <div className="mt-8">{children}</div>
       </div>
     </section>
@@ -97,7 +101,10 @@ export function Hero() {
       >
         <HeroFibers />
       </div>
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-5 px-5 pt-1 pb-1 sm:px-8 md:absolute md:top-[10%] md:left-1/2 md:mx-0 md:-translate-x-1/2 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:gap-10 md:gap-x-8">
+      <FadeIn
+        stagger
+        className="relative mx-auto grid w-full max-w-6xl items-center gap-5 px-5 pt-1 pb-1 sm:px-8 md:absolute md:top-[10%] md:left-1/2 md:mx-0 md:-translate-x-1/2 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:gap-10 md:gap-x-8"
+      >
         <div className="flex justify-center md:col-start-2 md:row-span-2 md:row-start-1 md:justify-end md:pr-6">
           <Portrait
             src={personal.headshotUrl}
@@ -142,20 +149,24 @@ export function Hero() {
             </a>
           </div>
         </div>
-        <a
-          href="#experience"
-          className="focus-ring relative z-10 col-span-full mx-auto mt-4 flex w-fit flex-col items-center gap-0.5 px-3 py-1 text-[0.68rem] tracking-[0.22em] text-ink-soft uppercase md:mt-2"
+      </FadeIn>
+      <div className="mx-auto mt-4 w-fit md:absolute md:bottom-36 md:left-1/2 md:z-10 md:mt-0 md:-translate-x-1/2">
+        <FadeIn>
+      <a
+        href="#experience"
+        className="focus-ring relative flex flex-col items-center gap-0.5 px-3 py-1 text-[0.68rem] tracking-[0.22em] text-ink-soft uppercase"
+      >
+        <GradientText
+          colors={["#c96b86", "#e7a8bc", "#9aaf98"]}
+          animationSpeed={1.5}
+          variant="flow"
+          glow={0.25}
         >
-          <GradientText
-            colors={["#c96b86", "#e7a8bc", "#9aaf98"]}
-            animationSpeed={1.5}
-            variant="flow"
-            glow={0.25}
-          >
-            Scroll
-          </GradientText>
-          <ChevronDown className="size-4 motion-safe:animate-bounce" aria-hidden="true" />
-        </a>
+          Scroll
+        </GradientText>
+        <ChevronDown className="size-4 motion-safe:animate-bounce" aria-hidden="true" />
+      </a>
+        </FadeIn>
       </div>
     </section>
   );
@@ -163,8 +174,8 @@ export function Hero() {
 
 export function Experience() {
   return (
-    <Section id="experience" title="Clinical Experience" icon={Stethoscope}>
-      <div className="grid gap-4">
+    <Section id="experience" title="Where I work" icon={Stethoscope}>
+      <FadeIn stagger className="grid gap-4">
         {resumeData.professionalExperience.map((job) => {
           const source = `${job.unit} ${job.highlights.join(" ")}`;
           const tags = WARD_TAGS.filter((tag) => source.includes(tag));
@@ -176,7 +187,10 @@ export function Experience() {
                   <h3 className="font-serif text-2xl tracking-tight text-balance">{job.role}</h3>
                   <p className="text-sm tabular-nums text-ink-soft">{job.period}</p>
                 </div>
-                <p className="mt-1 text-accent-ink">{job.hospital}</p>
+                <p className="mt-1 flex items-start gap-1.5 text-accent-ink">
+                  <Hospital className="mt-1 size-4 shrink-0" aria-hidden="true" strokeWidth={1.75} />
+                  <span className="min-w-0">{job.hospital}</span>
+                </p>
                 {tags.length > 0 ? (
                   <ul className="mt-4 flex flex-wrap gap-2">
                     {tags.map((tag) => (
@@ -198,48 +212,53 @@ export function Experience() {
             </Card>
           );
         })}
-      </div>
+      </FadeIn>
     </Section>
   );
 }
 
 export function Skills() {
   return (
-    <Section id="skills" title="Clinical Skills & Competencies" icon={Sparkles}>
-      <div className="grid gap-4 md:grid-cols-3">
+    <Section id="skills" title="Here's what I can do" icon={Sparkles}>
+      <FadeIn stagger className="grid gap-4 sm:grid-cols-2">
         {Object.entries(resumeData.clinicalSkills).map(([group, skills]) => (
           <Card key={group}>
             <article className="h-full p-5">
               <h3 className="font-serif text-xl tracking-tight text-balance">{group}</h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {skills.map((skill) => (
-                  <li key={skill}>
-                    <Badge className={chip}>{skill}</Badge>
+                  <li key={skill} className="max-w-full min-w-0">
+                    <Badge className={`${chip} h-auto max-w-full whitespace-normal py-1 leading-4`}>
+                      {skill}
+                    </Badge>
                   </li>
                 ))}
               </ul>
             </article>
           </Card>
         ))}
-      </div>
+      </FadeIn>
     </Section>
   );
 }
 
 export function Rotations() {
   return (
-    <Section id="rotations" title="Student Nurse Related Learning Experience" icon={GraduationCap}>
-      <div className="grid gap-4 md:grid-cols-2">
+    <Section id="rotations" title="Where I learned it" icon={GraduationCap}>
+      <FadeIn stagger className="grid gap-4 md:grid-cols-2">
         {resumeData.clinicalRotations.map((rotation) => (
           <Card key={rotation.unit}>
             <article className="h-full p-5">
               <h3 className="font-serif text-xl tracking-tight text-balance">{rotation.unit}</h3>
-              <p className="mt-1 text-sm text-accent-ink">{rotation.hospital}</p>
+              <p className="mt-1 flex items-start gap-1.5 text-sm text-accent-ink">
+                <Hospital className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" strokeWidth={1.75} />
+                <span className="min-w-0">{rotation.hospital}</span>
+              </p>
               <p className="mt-3 text-pretty leading-7 text-ink-soft">{rotation.summary}</p>
             </article>
           </Card>
         ))}
-      </div>
+      </FadeIn>
     </Section>
   );
 }
@@ -254,8 +273,8 @@ export function Credentials() {
   const { education } = resumeData;
 
   return (
-    <Section id="certifications" title="Certifications, Training & Education" icon={Award}>
-      <div className="grid items-start gap-4 md:grid-cols-2">
+    <Section id="certifications" title="The training behind it" icon={Award}>
+      <FadeIn stagger className="grid items-start gap-4 md:grid-cols-2">
         <Card>
           <article className="h-full p-5 sm:p-6">
             <h3 className="font-serif text-xl tracking-tight">Clinical Certification</h3>
@@ -299,7 +318,7 @@ export function Credentials() {
             </article>
           </Card>
         </div>
-      </div>
+      </FadeIn>
     </Section>
   );
 }
@@ -335,8 +354,8 @@ export function Contact() {
   ];
 
   return (
-    <Section id="contact" title="Contact" icon={Mail}>
-      <div className="overflow-hidden rounded-[18px] border border-line bg-surface">
+    <Section id="contact" title="Come say hi" icon={Mail}>
+      <FadeIn className="overflow-hidden rounded-[18px] border border-line bg-surface">
         <ul className="divide-y divide-line">
           {rows.map((row) => {
             const Icon = row.icon;
@@ -357,7 +376,7 @@ export function Contact() {
             );
           })}
         </ul>
-      </div>
+      </FadeIn>
     </Section>
   );
 }
@@ -370,12 +389,12 @@ export async function Footer() {
 
   return (
     <footer className="border-t border-line pb-[calc(env(safe-area-inset-bottom)+4.75rem)]">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-baseline justify-between gap-2 px-5 py-8 sm:px-8">
+      <FadeIn className="mx-auto flex max-w-6xl flex-wrap items-baseline justify-between gap-2 px-5 py-8 sm:px-8">
         <p translate="no" className="font-serif text-lg">
         &copy; {currentYear} {name}
         </p>
         <p className="text-sm text-ink-soft">{shortCredentials}, {shortDegree}</p>
-      </div>
+      </FadeIn>
     </footer>
   );
 }
