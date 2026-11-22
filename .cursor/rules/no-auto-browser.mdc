@@ -1,0 +1,19 @@
+---
+description: Leave browser checks and production builds to the user unless they ask
+alwaysApply: true
+---
+
+# No automatic browser or build checks
+
+After an edit, stop. The user checks the running app themselves.
+
+- Do not open localhost or use browser tools (`browser_navigate`, snapshots, screenshots, CDP `Runtime.evaluate`, clicks) unless the user explicitly asks to look at the page.
+- Do not search or read `.next` to confirm an edit reached the dev server.
+- Do not run `pnpm build`, `next build`, or a production build after an edit. Run one only when the user asks, or when the task is a build failure, a deploy check, or a change that only shows up at build time.
+
+```text
+// After editing components/header.tsx
+// Stop. Do not open http://localhost:3000.
+// Do not grep .next for the new prop.
+// Do not run pnpm build.
+```
