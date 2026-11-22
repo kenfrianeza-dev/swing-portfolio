@@ -31,7 +31,7 @@ export const resumeData = {
         location: "Quezon City, Metro Manila, Philippines",
         phone: "0936 950 1703",
         email: "stellajoygregorio.rn@gmail.com",
-        availability: "Active Registered Nurse • Open to Clinical Opportunities",
+        availability: ["Active Registered Nurse", "Open to Clinical Opportunities"],
         summary:
             "I like the ward. I start the IV, stay close after surgery, and tell you what's happening in normal words.",
         headshotUrl: "/headshot.jpg",

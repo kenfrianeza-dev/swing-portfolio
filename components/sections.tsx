@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { resumeData } from "@/data/resume";
 import BorderGlow from "@/components/BorderGlow";
+import GradientText from "@/components/GradientText";
 import { HeroFibers } from "@/components/hero-fibers";
 import { Portrait } from "@/components/portrait";
 import { Badge } from "@/components/ui/badge";
@@ -24,6 +25,11 @@ const btn =
   "focus-ring inline-flex min-h-11 touch-manipulation items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold motion-safe:transition-colors";
 
 const chip = "bg-accent-fill text-white dark:bg-[#c96b86]";
+
+const STATUS_TONE: Record<string, string> = {
+  "Active Registered Nurse": "bg-accent-fill/50 text-white dark:bg-[#c96b86]/50",
+  "Open to Clinical Opportunities": "bg-emerald-600/50 text-white",
+};
 
 function Card({ children }: { children: ReactNode }) {
   return (
@@ -91,7 +97,7 @@ export function Hero() {
       >
         <HeroFibers />
       </div>
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-6 px-5 py-8 sm:px-8 md:absolute md:top-[14%] md:left-1/2 md:mx-0 md:-translate-x-1/2 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:gap-10 md:gap-x-8">
+      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-5 px-5 pt-1 pb-1 sm:px-8 md:absolute md:top-[10%] md:left-1/2 md:mx-0 md:-translate-x-1/2 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:gap-10 md:gap-x-8">
         <div className="flex justify-center md:col-start-2 md:row-span-2 md:row-start-1 md:justify-end md:pr-6">
           <Portrait
             src={personal.headshotUrl}
@@ -102,20 +108,30 @@ export function Hero() {
         <div className="text-center md:col-start-1 md:row-start-1 md:text-left">
           <h1
             translate="no"
-            className="mt-3 font-serif text-5xl leading-[0.92] tracking-[-0.03em] md:mt-4 md:text-7xl"
+            className="mt-1 font-serif text-4xl leading-[0.92] tracking-[-0.03em] md:mt-4 md:text-7xl"
           >
             <span className="block">Stella Joy</span>
             <span className="mt-1 block text-accent">Gregorio</span>
             <span className="sr-only">, RN</span>
           </h1>
-          <p className="text-[0.72rem] font-medium tracking-[0.18em] text-accent-ink uppercase pt-4">
+          <p className="pt-4 text-[0.72rem] font-medium tracking-[0.18em] text-accent-ink uppercase md:pt-6">
             {role}
           </p>
+          <ul className="mt-4 flex flex-nowrap items-center justify-center gap-1.5 md:mt-5 md:justify-start">
+            {personal.availability.map((item) => (
+              <li
+                key={item}
+                className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[0.65rem] leading-4 whitespace-nowrap ${STATUS_TONE[item]}`}
+              >
+                <span aria-hidden="true" className="size-1.5 shrink-0 rotate-45 bg-white motion-safe:animate-pulse" />
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="md:col-start-1 md:row-start-2">
           <p className="max-w-[42ch] text-pretty text-base leading-7 text-ink-soft">{personal.summary}</p>
-          <p className="mt-3 text-sm text-ink-soft">{personal.availability}</p>
-          <div className="mt-7">
+          <div className="mt-5 flex justify-center md:mt-7 md:justify-start">
             <a
               href={personal.resumePdfUrl}
               download
@@ -126,14 +142,21 @@ export function Hero() {
             </a>
           </div>
         </div>
+        <a
+          href="#experience"
+          className="focus-ring relative z-10 col-span-full mx-auto mt-4 flex w-fit flex-col items-center gap-0.5 px-3 py-1 text-[0.68rem] tracking-[0.22em] text-ink-soft uppercase md:mt-2"
+        >
+          <GradientText
+            colors={["#c96b86", "#e7a8bc", "#9aaf98"]}
+            animationSpeed={1.5}
+            variant="flow"
+            glow={0.25}
+          >
+            Scroll
+          </GradientText>
+          <ChevronDown className="size-4 motion-safe:animate-bounce" aria-hidden="true" />
+        </a>
       </div>
-      <a
-        href="#experience"
-        className="focus-ring relative z-10 mx-auto mb-8 flex w-fit flex-col items-center gap-1 px-3 py-2 text-[0.68rem] tracking-[0.22em] text-ink-soft uppercase md:mt-auto md:mb-24"
-      >
-        Scroll
-        <ChevronDown className="size-4" aria-hidden="true" />
-      </a>
     </section>
   );
 }
