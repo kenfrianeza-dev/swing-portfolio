@@ -42,7 +42,7 @@ const GradualBlur = ({
   position = 'bottom',
   target = 'parent',
   height = '6rem',
-  width,
+  width = undefined,
   strength = 2,
   layers = 8,
   curve = 'linear',
@@ -51,13 +51,13 @@ const GradualBlur = ({
   saturation = 1,
   tint = 'transparent',
   autoHide = false,
-  container,
+  container = undefined,
   hoverIntensity = 1,
   duration = 0.3,
   easing = 'ease-out',
   zIndex = 1000,
   className = '',
-  style
+  style = undefined
 }) => {
   const rootRef = useRef(null);
   const edge = DIRECTIONS[position] ? position : 'bottom';

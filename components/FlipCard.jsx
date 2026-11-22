@@ -24,11 +24,11 @@ const snap = deg => Math.round(deg / 180) * 180;
 const isBack = deg => Math.abs(Math.round(deg / 180)) % 2 === 1;
 
 export default function FlipCard({
-  front = null,
-  back = null,
-  flipped,
+  front = /** @type {import('react').ReactNode} */ (null),
+  back = /** @type {import('react').ReactNode} */ (null),
+  flipped = undefined,
   defaultFlipped = false,
-  onFlipChange,
+  onFlipChange = undefined,
   axis = 'y',
   flipOnClick = true,
   draggable = true,

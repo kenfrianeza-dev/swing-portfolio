@@ -16,7 +16,7 @@ export default function GradientText({
   animationSpeed = 8,
   variant = 'linear',
   angle = 90,
-  direction,
+  direction = undefined,
   scale = 3,
   yoyo = true,
   glow = 0,
@@ -25,7 +25,7 @@ export default function GradientText({
   pauseOnHover = false,
   followPointer = false,
   className = '',
-  style
+  style = undefined
 }) {
   const rootRef = useRef(null);
   const settingsRef = useRef(null);
